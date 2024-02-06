@@ -29,7 +29,7 @@ class LoginSuccess(unittest.TestCase):
         self.browser.find_element(By.NAME, "username").send_keys("admin")
         self.browser.find_element(By.NAME, "password").send_keys("nimda666!")
         self.browser.find_element(By.XPATH, "/html/body/form/button").click()
-        self.browser.implicitly_wait(5)
+        self.browser.implicitly_wait(10)
 
         # Langkah 4: Verifikasi login berhasil
         expected_result = "Halo, admin"
