@@ -2,6 +2,7 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
+import os
 
 class LoginSuccess(unittest.TestCase):
     @classmethod
@@ -15,7 +16,8 @@ class LoginSuccess(unittest.TestCase):
     )
         
     def test_1_home_check(self):
-        self.browser.get('http://127.0.0.1:81/login.php')
+        url = os.environ.get('URL')
+        self.browser.get(url)
         expected_result = "Login"        
         actual_result = self.browser.title
         self.assertIn(expected_result, actual_result)
