@@ -35,7 +35,7 @@ jobs:
         run: docker compose up -d
         
       - name: Checking db
-      - run: docker exec -it mysql-container ls /docker-entrypoint-initdb.d/
+        run: docker exec -it mysql-container ls /docker-entrypoint-initdb.d/
        
       - name: Wait for Selenium Hub
         run: sh wait.sh
