@@ -14,7 +14,7 @@ class CreateContact(unittest.TestCase):
             options=firefox_options
     )
         
-    def test_1_home_check(self):
+    def home_check(self):
         url = os.environ.get('URL')
         self.browser.get(url)
         self.browser.implicitly_wait(5)
@@ -22,7 +22,7 @@ class CreateContact(unittest.TestCase):
         actual_result = self.browser.title
         self.assertIn(expected_result, actual_result)
         
-    def test_2_login_user(self):
+    def login_user(self):
         expected_result = "Halo, admin"
         self.browser.find_element(By.NAME, "username").send_keys("admin")
         self.browser.find_element(By.NAME, "password").send_keys("nimda666!")
@@ -31,14 +31,14 @@ class CreateContact(unittest.TestCase):
         actual_result = self.browser.find_element(By.TAG_NAME, "h2").text
         self.assertIn(expected_result, actual_result)
         
-    def test_3_go_to_create_contact(self):
+    def go_to_create_contact(self):
         expected_result = "Add new contact"
         self.browser.find_element(By.XPATH, "/html/body/div[1]/div[1]/div/a").click()
         self.browser.implicitly_wait(5)
         actual_result = self.browser.title
         self.assertIn(expected_result, actual_result)
         
-    def test_4_create_contact(self):
+    def create_contact(self):
         # Isi formulir dengan data kontak baru
         self.browser.find_element(By.ID, "name").send_keys("Fikra")
         self.browser.find_element(By.ID, "email").send_keys("fikra@example.com")
@@ -54,7 +54,7 @@ class CreateContact(unittest.TestCase):
         actual_result_after_save = self.browser.title
         self.assertIn(expected_result_after_save, actual_result_after_save)
         
-    def test_5_find_new_contact(self):
+    def find_new_contact(self):
         expected_result = "Fikra"
         self.browser.find_element(By.XPATH, '//*[@id="employee_filter"]/label/input').send_keys("Fikra")
         self.browser.implicitly_wait(3)

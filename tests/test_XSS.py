@@ -14,7 +14,7 @@ class XSSButton(unittest.TestCase):
             options=firefox_options
     )
         
-    def test_1_home_check(self):
+    def home_check(self):
         url = os.environ.get('URL')
         self.browser.get(url)
         self.browser.implicitly_wait(5)
@@ -22,7 +22,7 @@ class XSSButton(unittest.TestCase):
         actual_result = self.browser.title
         self.assertIn(expected_result, actual_result)
         
-    def test_2_login_user(self):
+    def login_user(self):
         expected_result = "Halo, admin"
         self.browser.find_element(By.NAME, "username").send_keys("admin")
         self.browser.find_element(By.NAME, "password").send_keys("nimda666!")
@@ -31,14 +31,14 @@ class XSSButton(unittest.TestCase):
         actual_result = self.browser.find_element(By.TAG_NAME, "h2").text
         self.assertIn(expected_result, actual_result)
         
-    def test_3_go_to_XSS(self):
+    def go_to_XSS(self):
         expected_result = "Dummy Page XSS Detect"
         self.browser.find_element(By.XPATH, "/html/body/div[1]/div[1]/div/div/a[2]").click()
         self.browser.implicitly_wait(5)
         actual_result = self.browser.find_element(By.TAG_NAME, "h2").text
         self.assertIn(expected_result, actual_result)
         
-    def test_4_type_thing(self):
+    def type_thing(self):
         expected_result = "Your thing is coba"
         self.browser.find_element(By.NAME, "thing").send_keys("coba")
         self.browser.find_element(By.NAME, "submit").click()
