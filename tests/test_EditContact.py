@@ -17,6 +17,7 @@ class LoginSuccess(unittest.TestCase):
     def test_1_home_check(self):
         url = os.environ.get('URL')
         self.browser.get(url)
+        self.browser.implicitly_wait(3)
         expected_result = "Login"        
         actual_result = self.browser.title
         self.assertIn(expected_result, actual_result)
@@ -26,12 +27,14 @@ class LoginSuccess(unittest.TestCase):
         self.browser.find_element(By.NAME, "username").send_keys("admin")
         self.browser.find_element(By.NAME, "password").send_keys("nimda666!")
         self.browser.find_element(By.XPATH, "/html/body/form/button").click()
+        self.browser.implicitly_wait(3)
         actual_result = self.browser.find_element(By.TAG_NAME, "h2").text
         self.assertIn(expected_result, actual_result)
         
     def test_3_go_to_create_contact(self):
         expected_result = "Add new contact"
         self.browser.find_element(By.XPATH, "/html/body/div[1]/div[1]/div/a").click()
+        self.browser.implicitly_wait(3)
         actual_result = self.browser.title
         self.assertIn(expected_result, actual_result)
         
@@ -56,6 +59,7 @@ class LoginSuccess(unittest.TestCase):
     def test_5_go_to_edit_contact(self):
         expected_result = "Change contact"
         self.browser.find_element(By.XPATH, '//*[@id="employee_filter"]/label/input').send_keys("Fikra")
+        self.browser.implicitly_wait(3)
         ids = self.browser.find_elements(By.CLASS_NAME, "sorting_1")
         target_id = ids[1].text
         edit_button = self.browser.find_element(By.XPATH, f"//a[@href='update.php?id={target_id}']")
@@ -83,6 +87,7 @@ class LoginSuccess(unittest.TestCase):
     def test_7_find_edited_contact(self):
         expected_result = "Fikri"
         self.browser.find_element(By.XPATH, '//*[@id="employee_filter"]/label/input').send_keys("Fikri")
+        self.browser.implicitly_wait(1)
         actual_result = self.browser.find_element(By.XPATH, '//*[@id="employee"]/tbody/tr/td[2]').text
         self.assertIn(expected_result, actual_result)
         

@@ -1,7 +1,6 @@
 import unittest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import time
 import os
 
 class LoginSuccess(unittest.TestCase):
@@ -18,7 +17,7 @@ class LoginSuccess(unittest.TestCase):
     def test_1_home_check(self):
         url = os.environ.get('URL')
         self.browser.get(url)
-        time.sleep(10)
+        self.browser.implicitly_wait(3)
         expected_result = "Login"        
         actual_result = self.browser.title
         self.assertIn(expected_result, actual_result)
@@ -28,12 +27,13 @@ class LoginSuccess(unittest.TestCase):
         self.browser.find_element(By.NAME, "username").send_keys("admin")
         self.browser.find_element(By.NAME, "password").send_keys("nimda666!")
         self.browser.find_element(By.XPATH, "/html/body/form/button").click()
+        self.browser.implicitly_wait(3)
         actual_result = self.browser.find_element(By.TAG_NAME, "h2").text
         self.assertIn(expected_result, actual_result)
         
     def test_3_go_to_logout(self):
-        expected_result = "Dummy Page XSS Detect"
         self.browser.find_element(By.XPATH, "/html/body/div[1]/div[1]/div/div/a[3]").click()
+        self.browser.implicitly_wait(3)
         expected_result = "Login"        
         actual_result = self.browser.title
         self.assertIn(expected_result, actual_result)
