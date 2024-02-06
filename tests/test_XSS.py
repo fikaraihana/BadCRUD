@@ -33,7 +33,7 @@ class LoginSuccess(unittest.TestCase):
 
         # Langkah 4: Verifikasi login berhasil
         expected_result = "Halo, admin"
-        actual_result = self.browser.find_element(By.TAG_NAME, "h2").text
+        actual_result = self.browser.find_element(By.xpath, "/html/body/div[1]/h2").text
         self.assertIn(expected_result, actual_result)
 
         # Langkah 5: Menuju halaman XSS
