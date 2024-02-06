@@ -1,10 +1,10 @@
 <?php
 
 function pdo_connect(){
-    $DATABASE_HOST = 'localhost';
+    $DATABASE_HOST = 'db';
     $DATABASE_USER = 'root';
     $DATABASE_PASS = '';
-    $DATABASE_NAME = 'badcrud_db_1';
+    $DATABASE_NAME = 'badcrud';
     try {
     	return new PDO('mysql:host=' . $DATABASE_HOST . ';dbname=' . $DATABASE_NAME, $DATABASE_USER, $DATABASE_PASS);
     } catch (PDOException $exception) {
