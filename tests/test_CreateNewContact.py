@@ -2,17 +2,21 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import os
+import random
+import string
 
 class CreateContact(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        firefox_options = webdriver.FirefoxOptions()
-        firefox_options.add_argument('--ignore-ssl-errors=yes')
-        firefox_options.add_argument('--ignore-certificate-errors')
-        cls.browser = webdriver.Remote(
-            command_executor='http://localhost:4444/wd/hub',
-            options=firefox_options
-    )
+        option = webdriver.FirefoxOptions()
+        option.add_argument('--headless')
+        cls.browser = webdriver.Firefox(options=option)
+        try:
+            cls.url = os.environ['URL']
+        except:
+            cls.url = "http://localhost"
+        cls.name_query = ''.join(random.choices(string.ascii_letters, k=10))
+    
     
     def test(self):
         self.home_check()
