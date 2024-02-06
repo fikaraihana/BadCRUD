@@ -6,12 +6,13 @@ services:
     ports:
       - "80:80"
 
-  db:
-      image: mysql:latest
-      environment:
-        MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-        MYSQL_DATABASE: badcrud
-      ports:
-        - "3306:3306"
-      volumes:
-        - ./db/badcrud.sql:/docker-entrypoint-initdb.d/badcrud.sql:ro
+  mysql:
+    image: mysql:latest
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: mysqlpassword
+      MYSQL_DATABASE: badcrud
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db/badcrud.sql:/docker-entrypoint-initdb.d/badcrud.sql:ro
