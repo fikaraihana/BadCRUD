@@ -14,6 +14,11 @@ class test_3_go_to_logout(unittest.TestCase):
             options=firefox_options
     )
         
+    def test(self):
+        self.home_check()
+        self.login_user()
+        self.go_to_logout()
+        
     def home_check(self):
         url = os.environ.get('URL')
         self.browser.get(url)

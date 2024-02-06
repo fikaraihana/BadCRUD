@@ -14,6 +14,15 @@ class EditContact(unittest.TestCase):
             options=firefox_options
     )
         
+    def test(self):
+        self.home_check()
+        self.login_user()
+        self.go_to_create_contact()
+        self.create_contact()
+        self.go_to_edit_contact()
+        self.Update_contact()
+        self.find_edited_contact()
+        
     def home_check(self):
         url = os.environ.get('URL')
         self.browser.get(url)

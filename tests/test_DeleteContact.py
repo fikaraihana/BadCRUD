@@ -13,6 +13,14 @@ class DeleteContact(unittest.TestCase):
             command_executor='http://localhost:4444/wd/hub',
             options=firefox_options
     )
+    
+    def test(self):
+        self.home_check()
+        self.login_user()
+        self.go_to_create_contact()
+        self.create_contact()
+        self.go_to_delete_contact()
+        self.find_deleted_contact()
         
     def home_check(self):
         url = os.environ.get('URL')

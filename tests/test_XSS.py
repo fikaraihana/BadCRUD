@@ -14,6 +14,12 @@ class XSSButton(unittest.TestCase):
             options=firefox_options
     )
         
+    def test(self):
+        self.home_check()
+        self.login_user()
+        self.go_to_XSS()
+        self.type_thing()
+        
     def home_check(self):
         url = os.environ.get('URL')
         self.browser.get(url)
