@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import os
 
-class LoginSuccess(unittest.TestCase):
+class XSSButton(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         firefox_options = webdriver.FirefoxOptions()
