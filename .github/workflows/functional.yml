@@ -1,0 +1,65 @@
+name: OTF Testing
+on:
+  push:
+    branches:
+      - main
+jobs:
+  test: 
+    name: Functional Test
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v4
+
+      - name: Create isolated network
+        run: docker network create --driver bridge isolated      
+
+      - name: Deploy AUT
+        run: docker build -t my-php-site:latest .
+
+      - name: Run AUT and Selenium using docker-compose
+        run: | 
+          docker-compose -f docker-compose.app.yaml up -d 
+          docker-compose -f docker-compose.selenium.yaml up --scale firefox=5 -d 
+
+      - name: Get AUT URL
+        run: |
+          URL=http://$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1)
+          echo "URL=$URL" >> $GITHUB_ENV
+
+      - name: Check AUT URL
+        run: curl ${{ env.URL }}
+      
+      - name: Selenium Preparation
+        run: docker compose up -d
+      
+      - name: Wait for Selenium Hub
+        run: sh wait.sh
+
+      - name: Check the Hub
+        run: curl http://localhost:4444/ui
+
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Screenshot
+          path: screenshot.png
+
+      - name: Install Selenium client
+        run: pip install -U selenium
+
+      - name: Install python parallel
+        run: pip install pytest-xdist
+
+      - name: Run test
+        run: pytest -v -n 5 tests/
+        
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Screenshot
+          path: screenshot.png
+
+      - name: stop docker
+        run: docker stop docker-apache
