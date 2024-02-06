@@ -21,7 +21,7 @@ jobs:
       - name: Run AUT and Selenium using docker-compose
         run: | 
           docker-compose -f docker-compose.yaml up -d 
-          docker-compose -f docker-compose_selenium.yaml up --scale firefox=5 -d 
+          docker-compose -f docker-compose_selenium.yaml up --scale firefox=5 -d
 
       - name: Get AUT URL
         run: |
@@ -33,7 +33,10 @@ jobs:
       
       - name: Selenium Preparation
         run: docker compose up -d
-      
+        
+      - name: Checking db
+      - run: docker exec -it mysql-container ls /docker-entrypoint-initdb.d/
+       
       - name: Wait for Selenium Hub
         run: sh wait.sh
 
